@@ -10,10 +10,14 @@ import UIKit
 
 public final class PresentAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
     
+    // MARK: Elements
+    
     public weak var transitionController: TransitionController!
     
     public var transitionDuration: NSTimeInterval = 0.5
     
+    // MARK: Transition
+
     public func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return self.transitionDuration
     }

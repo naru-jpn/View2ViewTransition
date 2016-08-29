@@ -9,6 +9,8 @@
 import UIKit
 
 public final class DismissAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
+    
+    // MARK: Elements
 
     public weak var transitionController: TransitionController!
     
@@ -25,6 +27,8 @@ public final class DismissAnimationController: NSObject, UIViewControllerAnimate
     private(set) var initialTransitionView: UIView!
     
     private(set) var destinationTransitionView: UIView!
+
+    // MARK: Transition
     
     public func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return self.transitionDuration
