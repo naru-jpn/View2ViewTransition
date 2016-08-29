@@ -80,7 +80,7 @@ public class DismissInteractiveTransition: UIPercentDrivenInteractiveTransition 
                 
                 cancelInteractiveTransition()
                 
-                let duration: Double = Double(self.duration)
+                let duration: Double = Double(self.duration)*Double(progress)
                 UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .CurveEaseInOut, animations: {
                     
                     self.animationController.destinationTransitionView.frame = self.animationController.destinationFrame
