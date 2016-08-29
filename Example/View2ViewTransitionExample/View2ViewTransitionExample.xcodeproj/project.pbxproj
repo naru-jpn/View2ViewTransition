@@ -17,7 +17,7 @@
 		4389BB941D73FB63000CD88C /* DismissInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4389BB8F1D73FB63000CD88C /* DismissInteractiveTransition.swift */; };
 		4389BB951D73FB63000CD88C /* PresentAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4389BB901D73FB63000CD88C /* PresentAnimationController.swift */; };
 		4389BB961D73FB63000CD88C /* TransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4389BB911D73FB63000CD88C /* TransitionController.swift */; };
-		4389BBAD1D742CB9000CD88C /* UIView+SnapshotImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4389BBAC1D742CB9000CD88C /* UIView+SnapshotImage.swift */; };
+		4389BBAF1D74311E000CD88C /* UIView+SnapshotImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4389BBAE1D74311E000CD88C /* UIView+SnapshotImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +33,7 @@
 		4389BB8F1D73FB63000CD88C /* DismissInteractiveTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DismissInteractiveTransition.swift; path = ../../../Sources/DismissInteractiveTransition.swift; sourceTree = "<group>"; };
 		4389BB901D73FB63000CD88C /* PresentAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresentAnimationController.swift; path = ../../../Sources/PresentAnimationController.swift; sourceTree = "<group>"; };
 		4389BB911D73FB63000CD88C /* TransitionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransitionController.swift; path = ../../../Sources/TransitionController.swift; sourceTree = "<group>"; };
-		4389BBAC1D742CB9000CD88C /* UIView+SnapshotImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+SnapshotImage.swift"; sourceTree = "<group>"; };
+		4389BBAE1D74311E000CD88C /* UIView+SnapshotImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+SnapshotImage.swift"; path = "../../../Sources/UIView+SnapshotImage.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,10 +82,10 @@
 			children = (
 				4389BB8D1D73FB63000CD88C /* View2ViewTransition.swift */,
 				4389BB911D73FB63000CD88C /* TransitionController.swift */,
+				4389BB901D73FB63000CD88C /* PresentAnimationController.swift */,
 				4389BB8E1D73FB63000CD88C /* DismissAnimationController.swift */,
 				4389BB8F1D73FB63000CD88C /* DismissInteractiveTransition.swift */,
-				4389BB901D73FB63000CD88C /* PresentAnimationController.swift */,
-				4389BBAC1D742CB9000CD88C /* UIView+SnapshotImage.swift */,
+				4389BBAE1D74311E000CD88C /* UIView+SnapshotImage.swift */,
 			);
 			name = Vender;
 			path = View2ViewTransitionExample;
@@ -163,10 +163,10 @@
 			files = (
 				4389BB941D73FB63000CD88C /* DismissInteractiveTransition.swift in Sources */,
 				4389BB951D73FB63000CD88C /* PresentAnimationController.swift in Sources */,
+				4389BBAF1D74311E000CD88C /* UIView+SnapshotImage.swift in Sources */,
 				4389BB771D73FA96000CD88C /* AppDelegate.swift in Sources */,
 				4389BB8A1D73FB3F000CD88C /* PresentedViewController.swift in Sources */,
 				4389BB961D73FB63000CD88C /* TransitionController.swift in Sources */,
-				4389BBAD1D742CB9000CD88C /* UIView+SnapshotImage.swift in Sources */,
 				4389BB8B1D73FB3F000CD88C /* PresentingViewController.swift in Sources */,
 				4389BB921D73FB63000CD88C /* View2ViewTransition.swift in Sources */,
 				4389BB931D73FB63000CD88C /* DismissAnimationController.swift in Sources */,
