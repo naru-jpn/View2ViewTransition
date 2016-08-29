@@ -102,6 +102,7 @@ public class DismissInteractiveTransition: UIPercentDrivenInteractiveTransition 
             } else {
                 
                 finishInteractiveTransition()
+                self.transitionController.presentingViewController.view.userInteractionEnabled = false
                 
                 let duration: Double = animationController.transitionDuration
                 UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.0, options: .CurveEaseInOut, animations: {
@@ -114,6 +115,7 @@ public class DismissInteractiveTransition: UIPercentDrivenInteractiveTransition 
                     
                 }, completion: { _ in
                     
+                    self.transitionController.presentingViewController.view.userInteractionEnabled = true
                     self.animationController.initialView.hidden = false
                     self.transitionContext.completeTransition(true)
                 })
