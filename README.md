@@ -13,7 +13,9 @@ github "naru-jpn/View2ViewTransition"
 
 __CocoaPods__
 
-coming soon...
+```
+pod 'View2ViewTransition'
+```
 
 ## Usage
 
