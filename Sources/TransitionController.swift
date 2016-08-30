@@ -55,6 +55,9 @@ public final class TransitionController: NSObject {
         let pan = UIPanGestureRecognizer(target: dismissInteractiveTransition, action: #selector(dismissInteractiveTransition.handlePanGesture(_:)))
         attached.view.addGestureRecognizer(pan)
         
+        self.presentingViewController = presentingViewController
+        self.presentedViewController = presentedViewController
+
         // Present
         presentingViewController.presentViewController(presentedViewController, animated: true, completion: completion)
     }
