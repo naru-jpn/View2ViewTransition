@@ -39,9 +39,8 @@ public final class PresentAnimationController: NSObject, UIViewControllerAnimate
             }
             return
         }
-        guard let containerView = transitionContext.containerView() else {
-            return
-        }
+
+        let containerView = transitionContext.containerView()
         
         if self.transitionController.debuging {
             debugPrint("View2ViewTransition << Will Present")

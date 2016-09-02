@@ -17,7 +17,7 @@ public extension UIView {
         
         let context: CGContextRef = UIGraphicsGetCurrentContext()!
         self.layer.renderInContext(context)
-        let snapshot: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        let snapshot: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         
         UIGraphicsEndImageContext()
         

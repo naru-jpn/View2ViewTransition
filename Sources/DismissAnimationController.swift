@@ -51,9 +51,7 @@ public final class DismissAnimationController: NSObject, UIViewControllerAnimate
             }
             return
         }
-        guard let containerView = transitionContext.containerView() else {
-            return
-        }
+        let containerView: UIView = transitionContext.containerView()
         
         if self.transitionController.debuging {
             debugPrint("View2ViewTransition << Will Dismiss")
