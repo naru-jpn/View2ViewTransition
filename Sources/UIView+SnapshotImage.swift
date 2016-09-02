@@ -15,9 +15,9 @@ public extension UIView {
         let size: CGSize = CGSize(width: floor(self.frame.size.width), height: floor(self.frame.size.height))
         UIGraphicsBeginImageContextWithOptions(size, true, 0.0)
         
-        let context: CGContextRef = UIGraphicsGetCurrentContext()!
-        self.layer.renderInContext(context)
-        let snapshot: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        let context: CGContext = UIGraphicsGetCurrentContext()!
+        self.layer.render(in: context)
+        let snapshot: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         
         UIGraphicsEndImageContext()
         
