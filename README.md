@@ -39,7 +39,7 @@ __Presenting viewController conforms View2ViewTransitionPresenting__
 ```swift
 func initialFrame(userInfo: [String: AnyObject]?, isPresenting: Bool) -> CGRect
 func initialView(userInfo: [String: AnyObject]?, isPresenting: Bool) -> UIView
-func prepereInitialView(userInfo: [String: AnyObject]?, isPresenting: Bool) -> Void // (optional)
+func prepareInitialView(userInfo: [String: AnyObject]?, isPresenting: Bool) -> Void // (optional)
 ```
 
 __Presented viewController conforms View2ViewTransitionPresented__
