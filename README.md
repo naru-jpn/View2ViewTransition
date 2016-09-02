@@ -39,7 +39,7 @@ __Presenting viewController conforms View2ViewTransitionPresenting__
 ```swift
 func initialFrame(userInfo: [String: AnyObject]?, isPresenting: Bool) -> CGRect
 func initialView(userInfo: [String: AnyObject]?, isPresenting: Bool) -> UIView
-func prepareInitialView(userInfo: [String: AnyObject]?, isPresenting: Bool) -> Void // (optional)
+func prepereInitialView(userInfo: [String: AnyObject]?, isPresenting: Bool) -> Void // (optional)
 ```
 
 __Presented viewController conforms View2ViewTransitionPresented__
@@ -56,6 +56,16 @@ You can set userInfo to notify indexPath or share resource etc.
 
 ```swift
 transitionController.userInfo = ["key": "value", ...]
+```
+
+### Debug Mode
+
+If you have hierarchical view controllers (navigation controllers) in app, viewController to conform protocol is not intuitive. View2ViewTransition prints some information in debug mode. 
+
+```swift
+let transitionController = TransitionController()
+// ...
+transitionController.debuging = true
 ```
 
 ## Example
