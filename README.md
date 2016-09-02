@@ -1,5 +1,5 @@
 # View2ViewTransition
-For custom interactive viewController transition from one view to another view.
+Simple framework for custom interactive viewController transition from one view to another view.
 
 <img src="https://github.com/naru-jpn/View2ViewTransition/blob/master/preview.gif?raw=true" width="300">
 
