@@ -24,11 +24,11 @@ public protocol View2ViewTransitionPresenting {
     /// Prepare initial transition view (optional).
     /// - parameter userInfo: user info
     /// - parameter isPresenting: transition is present or not
-    func prepereInitialView(_ userInfo: [String: AnyObject]?, isPresenting: Bool) -> Void
+    func prepareInitialView(_ userInfo: [String: AnyObject]?, isPresenting: Bool) -> Void
 }
 
 extension View2ViewTransitionPresenting {
-    func prepereInitialView(_ userInfo: [String: AnyObject]?, isPresenting: Bool) -> Void { }
+    func prepareInitialView(_ userInfo: [String: AnyObject]?, isPresenting: Bool) -> Void { }
 }
 
 /// Protocol for Presented View Controller
@@ -51,5 +51,5 @@ public protocol View2ViewTransitionPresented {
 }
 
 extension View2ViewTransitionPresented {
-    func prepereInitialView(_ userInfo: [String: AnyObject]?, isPresenting: Bool) -> Void { }
+    func prepareInitialView(_ userInfo: [String: AnyObject]?, isPresenting: Bool) -> Void { }
 }

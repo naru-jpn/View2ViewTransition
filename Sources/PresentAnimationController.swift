@@ -40,7 +40,7 @@ public final class PresentAnimationController: NSObject, UIViewControllerAnimate
         }
         let containerView = transitionContext.containerView
         
-        fromViewController.prepereInitialView(self.transitionController.userInfo, isPresenting: true)
+        fromViewController.prepareInitialView(self.transitionController.userInfo, isPresenting: true)
         let initialView: UIView = fromViewController.initialView(self.transitionController.userInfo, isPresenting: true)
         let initialFrame: CGRect = fromViewController.initialFrame(self.transitionController.userInfo, isPresenting: true)
         
