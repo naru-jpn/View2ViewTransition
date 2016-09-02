@@ -95,7 +95,7 @@ extension PresentingViewController: View2ViewTransitionPresenting {
         return cell.contentView
     }
     
-    func prepereInitialView(userInfo: [String : AnyObject]?, isPresenting: Bool) {
+    func prepareInitialView(userInfo: [String : AnyObject]?, isPresenting: Bool) {
         
         let indexPath: NSIndexPath = userInfo!["initialIndexPath"] as! NSIndexPath
         

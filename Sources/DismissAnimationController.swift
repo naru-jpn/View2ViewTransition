@@ -65,7 +65,7 @@ public final class DismissAnimationController: NSObject, UIViewControllerAnimate
         self.destinationView = fromViewController.destinationView(self.transitionController.userInfo, isPresenting: false)
         self.destinationFrame = fromViewController.destinationFrame(self.transitionController.userInfo, isPresenting: false)
         
-        toViewController.prepereInitialView(self.transitionController.userInfo, isPresenting: false)
+        toViewController.prepareInitialView(self.transitionController.userInfo, isPresenting: false)
         self.initialView = toViewController.initialView(self.transitionController.userInfo, isPresenting: false)
         self.initialFrame = toViewController.initialFrame(self.transitionController.userInfo, isPresenting: false)
         

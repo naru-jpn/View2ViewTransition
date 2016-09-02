@@ -58,6 +58,16 @@ You can set userInfo to notify indexPath or share resource etc.
 transitionController.userInfo = ["key": "value", ...]
 ```
 
+### Debug Mode
+
+If you have hierarchical view controllers (navigation controllers) in app, viewController to conform protocol is not intuitive. View2ViewTransition prints some information in debug mode. 
+
+```swift
+let transitionController = TransitionController()
+// ...
+transitionController.debuging = true
+```
+
 ## Example
 
 [View2ViewTransitionExample](https://github.com/naru-jpn/View2ViewTransition/tree/master/Example/View2ViewTransitionExample)
