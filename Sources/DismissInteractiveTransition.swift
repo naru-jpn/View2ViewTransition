@@ -12,15 +12,15 @@ public class DismissInteractiveTransition: UIPercentDrivenInteractiveTransition 
     
     // MARK: Elements
     
-    var interactionInProgress: Bool = false
+    public var interactionInProgress: Bool = false
     
     public weak var transitionController: TransitionController!
     
     public weak var animationController: DismissAnimationController!
     
-    var initialPanPoint: CGPoint! = CGPoint.zero
+    public var initialPanPoint: CGPoint! = CGPoint.zero
     
-    var transitionContext: UIViewControllerContextTransitioning!
+    private(set) var transitionContext: UIViewControllerContextTransitioning!
     
     // MARK: Gesture
     

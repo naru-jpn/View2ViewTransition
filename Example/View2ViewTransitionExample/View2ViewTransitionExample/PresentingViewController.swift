@@ -19,7 +19,7 @@ class PresentingViewController: UIViewController, UICollectionViewDelegate, UICo
     
     // MARK: Elements
     
-    var transitionController: TransitionController = TransitionController()
+    let transitionController: TransitionController = TransitionController()
     
     var selectedIndexPath: NSIndexPath = NSIndexPath(forItem: 0, inSection: 0)
     

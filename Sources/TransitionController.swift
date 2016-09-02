@@ -10,6 +10,8 @@ import UIKit
 
 public final class TransitionController: NSObject {
 
+    public var debuging: Bool = false
+    
     public var userInfo: [String: AnyObject]? = nil
     
     public lazy var presentAnimationController: PresentAnimationController = {

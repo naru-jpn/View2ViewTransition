@@ -39,10 +39,16 @@ public final class DismissAnimationController: NSObject, UIViewControllerAnimate
         // Get ViewControllers and Container View
         let from: String = UITransitionContextFromViewControllerKey
         guard let fromViewController = transitionContext.viewControllerForKey(from) as? View2ViewTransitionPresented where fromViewController is UIViewController else {
+            if self.transitionController.debuging {
+                debugPrint("View2ViewTransition << No valid presenting view controller (\(transitionContext.viewControllerForKey(from)))")
+            }
             return
         }
         let to: String = UITransitionContextToViewControllerKey
         guard let toViewController = transitionContext.viewControllerForKey(to) as? View2ViewTransitionPresenting where toViewController is UIViewController else {
+            if self.transitionController.debuging {
+                debugPrint("View2ViewTransition << No valid presenting view controller (\(transitionContext.viewControllerForKey(from)))")
+            }
             return
         }
         guard let containerView = transitionContext.containerView() else {
