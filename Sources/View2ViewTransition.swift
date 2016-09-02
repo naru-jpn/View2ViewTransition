@@ -24,11 +24,11 @@ import UIKit
     /// Prepare initial transition view (optional).
     /// - parameter userInfo: user info
     /// - parameter isPresenting: transition is present or not
-    func prepereInitialView(userInfo: [String: AnyObject]?, isPresenting: Bool) -> Void
+    func prepareInitialView(userInfo: [String: AnyObject]?, isPresenting: Bool) -> Void
 }
 
 extension View2ViewTransitionPresenting {
-    func prepereInitialView(userInfo: [String: AnyObject]?, isPresenting: Bool) -> Void { }
+    func prepareInitialView(userInfo: [String: AnyObject]?, isPresenting: Bool) -> Void { }
 }
 
 /// Protocol for Presented View Controller
@@ -51,5 +51,5 @@ extension View2ViewTransitionPresenting {
 }
 
 extension View2ViewTransitionPresented {
-    func prepereInitialView(userInfo: [String: AnyObject]?, isPresenting: Bool) -> Void { }
+    func prepareInitialView(userInfo: [String: AnyObject]?, isPresenting: Bool) -> Void { }
 }
