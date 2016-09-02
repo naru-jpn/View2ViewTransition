@@ -55,6 +55,12 @@ public final class DismissAnimationController: NSObject, UIViewControllerAnimate
             return
         }
         
+        if self.transitionController.debuging {
+            debugPrint("View2ViewTransition << Will Dismiss")
+            debugPrint(" Presented view controller: \(fromViewController)")
+            debugPrint(" Presenting view controller: \(toViewController)")
+        }
+        
         fromViewController.prepareDestinationView(self.transitionController.userInfo, isPresenting: false)
         self.destinationView = fromViewController.destinationView(self.transitionController.userInfo, isPresenting: false)
         self.destinationFrame = fromViewController.destinationFrame(self.transitionController.userInfo, isPresenting: false)
