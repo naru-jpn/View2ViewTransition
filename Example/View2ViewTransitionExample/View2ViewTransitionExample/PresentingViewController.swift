@@ -51,7 +51,8 @@ class PresentingViewController: UIViewController, UICollectionViewDelegate, UICo
         presentedViewController.transitioningDelegate = transitionController
         presentedViewController.transitionController = transitionController
         
-        transitionController.userInfo = ["destinationIndexPath": indexPath, "initialIndexPath": indexPath]
+        transitionController.userInfo = [TransitionController.destinationIndexPath: indexPath,
+                                         TransitionController.initialIndexPath: indexPath]
         transitionController.present(viewController: presentedViewController, on: self, attached: presentedViewController, completion: nil)
     }
     
@@ -81,7 +82,7 @@ extension PresentingViewController: View2ViewTransitionPresenting {
     
     func initialFrame(userInfo: [String: AnyObject]?, isPresenting: Bool) -> CGRect {
         
-        guard let indexPath: NSIndexPath = userInfo?["initialIndexPath"] as? NSIndexPath, attributes: UICollectionViewLayoutAttributes = self.collectionView.layoutAttributesForItemAtIndexPath(indexPath) else {
+        guard let indexPath: NSIndexPath = userInfo?[TransitionController.initialIndexPath] as? NSIndexPath, attributes: UICollectionViewLayoutAttributes = self.collectionView.layoutAttributesForItemAtIndexPath(indexPath) else {
             return CGRect.zero
         }
         return self.collectionView.convertRect(attributes.frame, toView: self.collectionView.superview)
@@ -89,7 +90,7 @@ extension PresentingViewController: View2ViewTransitionPresenting {
     
     func initialView(userInfo: [String: AnyObject]?, isPresenting: Bool) -> UIView {
         
-        let indexPath: NSIndexPath = userInfo!["initialIndexPath"] as! NSIndexPath
+        let indexPath: NSIndexPath = userInfo![TransitionController.initialIndexPath] as! NSIndexPath
         let cell: UICollectionViewCell = self.collectionView.cellForItemAtIndexPath(indexPath)!
         
         return cell.contentView
@@ -97,7 +98,7 @@ extension PresentingViewController: View2ViewTransitionPresenting {
     
     func prepareInitialView(userInfo: [String : AnyObject]?, isPresenting: Bool) {
         
-        let indexPath: NSIndexPath = userInfo!["initialIndexPath"] as! NSIndexPath
+        let indexPath: NSIndexPath = userInfo![TransitionController.initialIndexPath] as! NSIndexPath
         
         if !isPresenting && !self.collectionView.indexPathsForVisibleItems().contains(indexPath) {
             self.collectionView.reloadData()

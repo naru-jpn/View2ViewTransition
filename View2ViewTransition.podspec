@@ -1,4 +1,4 @@
-@version = "0.0.4"
+@version = "0.0.5"
 
 Pod::Spec.new do |s|
   s.name                  = "View2ViewTransition"
@@ -9,5 +9,5 @@ Pod::Spec.new do |s|
   s.author                = { "naru" => "tus.naru@gmail.com" }
   s.source                = { :git => "https://github.com/naru-jpn/View2ViewTransition.git", :tag => @version }
   s.source_files          = 'Sources/*.swift'
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '8.0'
 end

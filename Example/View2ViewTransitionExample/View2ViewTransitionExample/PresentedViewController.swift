@@ -86,7 +86,8 @@ class PresentedViewController: UIViewController, UICollectionViewDelegate, UICol
     func onCloseButtonClicked(sender: AnyObject) {
         
         let indexPath: NSIndexPath = self.collectionView.indexPathsForVisibleItems().first!
-        self.transitionController.userInfo = ["destinationIndexPath": indexPath, "initialIndexPath": indexPath]
+        self.transitionController.userInfo = [TransitionController.destinationIndexPath: indexPath,
+                                              TransitionController.initialIndexPath: indexPath]
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -95,7 +96,8 @@ class PresentedViewController: UIViewController, UICollectionViewDelegate, UICol
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         
         let indexPath: NSIndexPath = self.collectionView.indexPathsForVisibleItems().first!
-        self.transitionController.userInfo = ["destinationIndexPath": indexPath, "initialIndexPath": indexPath]
+        self.transitionController.userInfo = [TransitionController.destinationIndexPath: indexPath,
+                                              TransitionController.initialIndexPath: indexPath]
         
         let panGestureRecognizer: UIPanGestureRecognizer = gestureRecognizer as! UIPanGestureRecognizer
         let translate: CGPoint = panGestureRecognizer.translationInView(self.view)
@@ -107,14 +109,14 @@ extension PresentedViewController: View2ViewTransitionPresented {
     
     func destinationFrame(userInfo: [String: AnyObject]?, isPresenting: Bool) -> CGRect {
         
-        let indexPath: NSIndexPath = userInfo!["destinationIndexPath"] as! NSIndexPath
+        let indexPath: NSIndexPath = userInfo![TransitionController.destinationIndexPath] as! NSIndexPath
         let cell: PresentedCollectionViewCell = self.collectionView.cellForItemAtIndexPath(indexPath) as! PresentedCollectionViewCell
         return cell.content.frame
     }
     
     func destinationView(userInfo: [String: AnyObject]?, isPresenting: Bool) -> UIView {
         
-        let indexPath: NSIndexPath = userInfo!["destinationIndexPath"] as! NSIndexPath
+        let indexPath: NSIndexPath = userInfo![TransitionController.destinationIndexPath] as! NSIndexPath
         let cell: PresentedCollectionViewCell = self.collectionView.cellForItemAtIndexPath(indexPath) as! PresentedCollectionViewCell
         return cell.content
     }
@@ -123,7 +125,7 @@ extension PresentedViewController: View2ViewTransitionPresented {
         
         if isPresenting {
             
-            let indexPath: NSIndexPath = userInfo!["destinationIndexPath"] as! NSIndexPath
+            let indexPath: NSIndexPath = userInfo![TransitionController.destinationIndexPath] as! NSIndexPath
             let contentOfffset: CGPoint = CGPoint(x: self.collectionView.frame.size.width*CGFloat(indexPath.item), y: 0.0)
             self.collectionView.contentOffset = contentOfffset
             

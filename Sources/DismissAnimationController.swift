@@ -14,7 +14,7 @@ public final class DismissAnimationController: NSObject, UIViewControllerAnimate
 
     public weak var transitionController: TransitionController!
     
-    public var transitionDuration: NSTimeInterval = 0.5
+    public var transitionDuration: NSTimeInterval = 0.3
     
     private(set) var initialView: UIView!
     
@@ -60,7 +60,7 @@ public final class DismissAnimationController: NSObject, UIViewControllerAnimate
             debugPrint(" Presented view controller: \(fromViewController)")
             debugPrint(" Presenting view controller: \(toViewController)")
         }
-        
+
         fromViewController.prepareDestinationView(self.transitionController.userInfo, isPresenting: false)
         self.destinationView = fromViewController.destinationView(self.transitionController.userInfo, isPresenting: false)
         self.destinationFrame = fromViewController.destinationFrame(self.transitionController.userInfo, isPresenting: false)
@@ -103,24 +103,25 @@ public final class DismissAnimationController: NSObject, UIViewControllerAnimate
         if transitionContext.isInteractive() {
             
             UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: options, animations: {
-                fromViewControllerView.alpha = CGFloat.min
+                fromViewControllerView.alpha = 0.0
             }, completion: nil)
             
         } else {
             
-            UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.0, options: options, animations: {
+            UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: options, animations: {
                 
                 self.destinationTransitionView.frame = self.initialFrame
                 self.initialTransitionView.frame = self.initialFrame
                 self.initialTransitionView.alpha = 1.0
-                fromViewControllerView.alpha = CGFloat.min
+                
+                fromViewControllerView.alpha = 0.0
                 
             }, completion: { _ in
-                    
                 self.destinationTransitionView.removeFromSuperview()
                 self.initialTransitionView.removeFromSuperview()
-                toViewControllerView.removeFromSuperview()
-                    
+                
+                toViewControllerView.alpha = 1.0
+                
                 self.initialView.hidden = false
                 self.destinationView.hidden = false
                     
