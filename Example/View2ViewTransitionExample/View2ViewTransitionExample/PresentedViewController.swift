@@ -84,10 +84,9 @@ class PresentedViewController: UIViewController, UICollectionViewDelegate, UICol
     
     func onCloseButtonClicked(sender: AnyObject) {
         
-        let indexPath: IndexPath = self.collectionView.indexPathsForVisibleItems.first!
+        let indexPath: NSIndexPath = self.collectionView.indexPathsForVisibleItems.first! as NSIndexPath
 
-        let _indexPath: NSIndexPath = NSIndexPath(row: indexPath.row, section: indexPath.section)
-        self.transitionController.userInfo = ["destinationIndexPath": _indexPath, "initialIndexPath": _indexPath]
+        self.transitionController.userInfo = ["destinationIndexPath": indexPath, "initialIndexPath": indexPath]
         self.dismiss(animated: true, completion: nil)
     }
     

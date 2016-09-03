@@ -21,7 +21,7 @@ class PresentingViewController: UIViewController, UICollectionViewDelegate, UICo
     
     let transitionController: TransitionController = TransitionController()
     
-    var selectedIndexPath: IndexPath = IndexPath(row: 0, section: 0)
+    var selectedIndexPath: IndexPath = IndexPath(item: 0, section: 0)
     
     lazy var collectionView: UICollectionView = {
         
@@ -51,8 +51,7 @@ class PresentingViewController: UIViewController, UICollectionViewDelegate, UICo
         presentedViewController.transitioningDelegate = transitionController
         presentedViewController.transitionController = transitionController
 
-        let _indexPath: NSIndexPath = NSIndexPath(row: indexPath.row, section: indexPath.section)
-        transitionController.userInfo = ["destinationIndexPath": _indexPath, "initialIndexPath": _indexPath]
+        transitionController.userInfo = ["destinationIndexPath": indexPath as NSIndexPath, "initialIndexPath": indexPath as NSIndexPath]
         transitionController.present(viewController: presentedViewController, on: self, attached: presentedViewController, completion: nil)
     }
     
