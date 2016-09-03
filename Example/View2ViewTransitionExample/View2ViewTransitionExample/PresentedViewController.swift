@@ -98,8 +98,8 @@ class PresentedViewController: UIViewController, UICollectionViewDelegate, UICol
         self.transitionController.userInfo = ["destinationIndexPath": indexPath, "initialIndexPath": indexPath]
         
         let panGestureRecognizer: UIPanGestureRecognizer = gestureRecognizer as! UIPanGestureRecognizer
-        let transate: CGPoint = panGestureRecognizer.translationInView(self.view)
-        return Double(abs(transate.y)/abs(transate.x)) > M_PI_4
+        let translate: CGPoint = panGestureRecognizer.translationInView(self.view)
+        return Double(abs(translate.y)/abs(translate.x)) > M_PI_4
     }
 }
 
