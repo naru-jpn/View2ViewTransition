@@ -1,4 +1,7 @@
 # View2ViewTransition
+
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-brightgreen.svg)](https://github.com/Carthage/Carthage) ![Pod Version](https://img.shields.io/badge/Pod-0.0.4-blue.svg) ![Swift Version](https://img.shields.io/badge/Swift-2.2-orange.svg) ![License MIT](https://img.shields.io/badge/License-MIT-lightgrey.svg) ![Plaforms](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)
+
 Simple framework for custom interactive viewController transition from one view to another view.
 
 <img src="https://github.com/naru-jpn/View2ViewTransition/blob/master/preview.gif?raw=true" width="300">
