@@ -94,8 +94,8 @@ class PresentedViewController: UIViewController, UICollectionViewDelegate, UICol
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         
-        let indexPath: IndexPath = self.collectionView.indexPathsForVisibleItems.first!
-        self.transitionController.userInfo = ["destinationIndexPath": indexPath as AnyObject, "initialIndexPath": indexPath as AnyObject]
+        let indexPath: NSIndexPath = self.collectionView.indexPathsForVisibleItems.first! as NSIndexPath
+        self.transitionController.userInfo = ["destinationIndexPath": indexPath, "initialIndexPath": indexPath]
 
         let panGestureRecognizer: UIPanGestureRecognizer = gestureRecognizer as! UIPanGestureRecognizer
         let transate: CGPoint = panGestureRecognizer.translation(in: self.view)
