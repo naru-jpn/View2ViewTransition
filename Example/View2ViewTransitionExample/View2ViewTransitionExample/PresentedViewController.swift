@@ -13,12 +13,12 @@ class PresentedViewController: UIViewController, UICollectionViewDelegate, UICol
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(self.collectionView)
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         
         self.view.addSubview(self.closeButton)
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if let gestureRecognizers = self.view.gestureRecognizers {
@@ -40,40 +40,39 @@ class PresentedViewController: UIViewController, UICollectionViewDelegate, UICol
         layout.itemSize = self.view.bounds.size
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
-        layout.scrollDirection = .Horizontal
+        layout.scrollDirection = .horizontal
         
         let collectionView: UICollectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: layout)
-        collectionView.registerClass(PresentedCollectionViewCell.self, forCellWithReuseIdentifier: "presented_cell")
-        collectionView.backgroundColor = UIColor.whiteColor()
+        collectionView.register(PresentedCollectionViewCell.self, forCellWithReuseIdentifier: "presented_cell")
+        collectionView.backgroundColor = UIColor.white
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.pagingEnabled = true
+        collectionView.isPagingEnabled = true
         return collectionView
     }()
     
     lazy var closeButton: UIButton = {
         let frame: CGRect = CGRect(x: 0.0, y: 20.0, width: 60.0, height: 40.0)
         let button: UIButton = UIButton(frame: frame)
-        button.setTitle("Close", forState: .Normal)
-        button.setTitleColor(UIColor.grayColor(), forState: .Normal)
-        button.addTarget(self, action: #selector(onCloseButtonClicked(_:)), forControlEvents: .TouchUpInside)
+        button.setTitle("Close", for: .normal)
+        button.setTitleColor(UIColor.gray, for: .normal)
+        button.addTarget(self, action: #selector(onCloseButtonClicked(sender:)), for: .touchUpInside)
         return button
     }()
     
     // MARK: CollectionView Data Source
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 50
     }
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        
-        let cell: PresentedCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("presented_cell", forIndexPath: indexPath) as! PresentedCollectionViewCell
-        cell.contentView.backgroundColor = UIColor.whiteColor()
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell: PresentedCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "presented_cell", for: indexPath) as! PresentedCollectionViewCell
+        cell.contentView.backgroundColor = UIColor.white
         
         let number: Int = indexPath.item%4 + 1
         cell.content.image = UIImage(named: "image\(number)")
@@ -85,45 +84,46 @@ class PresentedViewController: UIViewController, UICollectionViewDelegate, UICol
     
     func onCloseButtonClicked(sender: AnyObject) {
         
-        let indexPath: NSIndexPath = self.collectionView.indexPathsForVisibleItems().first!
+        let indexPath: NSIndexPath = self.collectionView.indexPathsForVisibleItems.first! as NSIndexPath
+
         self.transitionController.userInfo = ["destinationIndexPath": indexPath, "initialIndexPath": indexPath]
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     // MARK: Gesture Delegate
     
-    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         
-        let indexPath: NSIndexPath = self.collectionView.indexPathsForVisibleItems().first!
+        let indexPath: NSIndexPath = self.collectionView.indexPathsForVisibleItems.first! as NSIndexPath
         self.transitionController.userInfo = ["destinationIndexPath": indexPath, "initialIndexPath": indexPath]
-        
+
         let panGestureRecognizer: UIPanGestureRecognizer = gestureRecognizer as! UIPanGestureRecognizer
-        let transate: CGPoint = panGestureRecognizer.translationInView(self.view)
+        let transate: CGPoint = panGestureRecognizer.translation(in: self.view)
         return Double(abs(transate.y)/abs(transate.x)) > M_PI_4
     }
 }
 
 extension PresentedViewController: View2ViewTransitionPresented {
     
-    func destinationFrame(userInfo: [String: AnyObject]?, isPresenting: Bool) -> CGRect {
+    func destinationFrame(_ userInfo: [String: AnyObject]?, isPresenting: Bool) -> CGRect {
         
-        let indexPath: NSIndexPath = userInfo!["destinationIndexPath"] as! NSIndexPath
-        let cell: PresentedCollectionViewCell = self.collectionView.cellForItemAtIndexPath(indexPath) as! PresentedCollectionViewCell
+        let indexPath: IndexPath = userInfo!["destinationIndexPath"] as! IndexPath
+        let cell: PresentedCollectionViewCell = self.collectionView.cellForItem(at: indexPath) as! PresentedCollectionViewCell
         return cell.content.frame
     }
-    
-    func destinationView(userInfo: [String: AnyObject]?, isPresenting: Bool) -> UIView {
+
+    func destinationView(_ userInfo: [String: AnyObject]?, isPresenting: Bool) -> UIView {
         
-        let indexPath: NSIndexPath = userInfo!["destinationIndexPath"] as! NSIndexPath
-        let cell: PresentedCollectionViewCell = self.collectionView.cellForItemAtIndexPath(indexPath) as! PresentedCollectionViewCell
+        let indexPath: IndexPath = userInfo!["destinationIndexPath"] as! IndexPath
+        let cell: PresentedCollectionViewCell = self.collectionView.cellForItem(at: indexPath) as! PresentedCollectionViewCell
         return cell.content
     }
     
-    func prepareDestinationView(userInfo: [String: AnyObject]?, isPresenting: Bool) {
+    func prepareDestinationView(_ userInfo: [String: AnyObject]?, isPresenting: Bool) {
         
         if isPresenting {
             
-            let indexPath: NSIndexPath = userInfo!["destinationIndexPath"] as! NSIndexPath
+            let indexPath: IndexPath = userInfo!["destinationIndexPath"] as! IndexPath
             let contentOfffset: CGPoint = CGPoint(x: self.collectionView.frame.size.width*CGFloat(indexPath.item), y: 0.0)
             self.collectionView.contentOffset = contentOfffset
             
@@ -146,13 +146,13 @@ public class PresentedCollectionViewCell: UICollectionViewCell {
     
     public lazy var content: UIImageView = {
         let margin: CGFloat = 2.0
-        let width: CGFloat = (UIScreen.mainScreen().bounds.size.width - margin*2.0)
-        let height: CGFloat = (UIScreen.mainScreen().bounds.size.height - 160.0)
-        let frame: CGRect = CGRect(x: margin, y: (UIScreen.mainScreen().bounds.size.height - height)/2.0, width: width, height: height)
+        let width: CGFloat = (UIScreen.main.bounds.size.width - margin*2.0)
+        let height: CGFloat = (UIScreen.main.bounds.size.height - 160.0)
+        let frame: CGRect = CGRect(x: margin, y: (UIScreen.main.bounds.size.height - height)/2.0, width: width, height: height)
         let view: UIImageView = UIImageView(frame: frame)
-        view.backgroundColor = UIColor.grayColor()
+        view.backgroundColor = UIColor.gray
         view.clipsToBounds = true
-        view.contentMode = .ScaleAspectFill
+        view.contentMode = .scaleAspectFill
         return view
     }()
 }

@@ -33,12 +33,12 @@ public final class TransitionController: NSObject {
         return interactiveTransition
     }()
     
-    private(set) var presentingViewController: UIViewController!
+    fileprivate(set) var presentingViewController: UIViewController!
     
-    private(set) var presentedViewController: UIViewController!
+    fileprivate(set) var presentedViewController: UIViewController!
 
     /// Type Safe Present for Swift
-    public func present<T: View2ViewTransitionPresented, U: View2ViewTransitionPresenting where T: UIViewController, U: UIViewController>(viewController presentedViewController: T, on presentingViewController: U, attached: UIViewController, completion: (() -> Void)?) {
+    public func present<T: View2ViewTransitionPresented, U: View2ViewTransitionPresenting>(viewController presentedViewController: T, on presentingViewController: U, attached: UIViewController, completion: (() -> Void)?) where T: UIViewController, U: UIViewController {
         
         let pan = UIPanGestureRecognizer(target: dismissInteractiveTransition, action: #selector(dismissInteractiveTransition.handlePanGesture(_:)))
         attached.view.addGestureRecognizer(pan)
@@ -47,7 +47,7 @@ public final class TransitionController: NSObject {
         self.presentedViewController = presentedViewController
         
         // Present
-        presentingViewController.presentViewController(presentedViewController, animated: true, completion: completion)
+        presentingViewController.present(presentedViewController, animated: true, completion: completion)
     }
         
     @available(*, unavailable)
@@ -61,21 +61,21 @@ public final class TransitionController: NSObject {
         self.presentedViewController = presentedViewController
 
         // Present
-        presentingViewController.presentViewController(presentedViewController, animated: true, completion: completion)
+        presentingViewController.present(presentedViewController, animated: true, completion: completion)
     }
 }
 
 extension TransitionController: UIViewControllerTransitioningDelegate {
     
-    public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return self.presentAnimationController
     }
     
-    public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return self.dismissAnimationController
     }
     
-    public func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    public func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         return dismissInteractiveTransition.interactionInProgress ? dismissInteractiveTransition : nil
     }
 }
