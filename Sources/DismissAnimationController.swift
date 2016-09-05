@@ -84,9 +84,14 @@ public final class DismissAnimationController: NSObject, UIViewControllerAnimate
         
         // Add To,FromViewController's View
         let toViewControllerView: UIView = (toViewController as! UIViewController).view
-        containerView.addSubview(toViewControllerView)
         let fromViewControllerView: UIView = (fromViewController as! UIViewController).view
         containerView.addSubview(fromViewControllerView)
+        
+        // This condition is to prevent getting white screen at dismissing when multiple view controller are presented.
+        let isNeedToControlToViewController: Bool = toViewControllerView.superview == nil
+        if isNeedToControlToViewController {
+            containerView.addSubview(toViewControllerView)
+        }
         
         // Add Snapshot
         self.destinationTransitionView.frame = destinationFrame
@@ -119,8 +124,10 @@ public final class DismissAnimationController: NSObject, UIViewControllerAnimate
                     
                 self.destinationTransitionView.removeFromSuperview()
                 self.initialTransitionView.removeFromSuperview()
-                toViewControllerView.removeFromSuperview()
-                    
+                if isNeedToControlToViewController {
+                    toViewControllerView.removeFromSuperview()
+                }
+                
                 self.initialView.hidden = false
                 self.destinationView.hidden = false
                     
