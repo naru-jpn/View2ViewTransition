@@ -15,7 +15,8 @@ public final class PresentAnimationController: NSObject, UIViewControllerAnimate
     public weak var transitionController: TransitionController!
     
     public var transitionDuration: NSTimeInterval = 0.5
-    
+    public var isModalTransition = true
+
     // MARK: Transition
 
     public func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
@@ -26,14 +27,27 @@ public final class PresentAnimationController: NSObject, UIViewControllerAnimate
         
         // Get ViewControllers and Container View
         let from: String = UITransitionContextFromViewControllerKey
-        guard let fromViewController = transitionContext.viewControllerForKey(from) as? View2ViewTransitionPresenting where fromViewController is UIViewController else {
+        
+        var fromController = transitionContext.viewControllerForKey(from)
+        
+        if let navController = fromController as? UINavigationController where navController.viewControllers.count > 0 {
+            fromController = navController.viewControllers.last
+        }
+        
+        guard let fromViewController = fromController as? View2ViewTransitionPresenting where fromViewController is UIViewController else {
             if self.transitionController.debuging {
                 debugPrint("View2ViewTransition << No valid presenting view controller (\(transitionContext.viewControllerForKey(from)))")
             }
             return
         }
         let to: String = UITransitionContextToViewControllerKey
-        guard let toViewController = transitionContext.viewControllerForKey(to) as? View2ViewTransitionPresented where toViewController is UIViewController else {
+        var toController = transitionContext.viewControllerForKey(to)
+        
+        if let navController = toController as? UINavigationController where navController.viewControllers.count > 0 {
+            toController = navController.viewControllers.last
+        }
+
+        guard let toViewController = toController as? View2ViewTransitionPresented where toViewController is UIViewController else {
             if self.transitionController.debuging {
                 debugPrint("View2ViewTransition << No valid presented view controller (\(transitionContext.viewControllerForKey(to)))")
             }
@@ -71,9 +85,9 @@ public final class PresentAnimationController: NSObject, UIViewControllerAnimate
         
         // Add ToViewController's View
         let toViewControllerView: UIView = (toViewController as! UIViewController).view
-        toViewControllerView.alpha = CGFloat.min
+        toViewControllerView.alpha = 0.0
         containerView.addSubview(toViewControllerView)
-        
+                
         // Add Snapshot
         initialTransitionView.frame = initialFrame
         containerView.addSubview(initialTransitionView)
@@ -85,7 +99,7 @@ public final class PresentAnimationController: NSObject, UIViewControllerAnimate
         // Animation
         let duration: NSTimeInterval = transitionDuration(transitionContext)
         let options: UIViewAnimationOptions = [.CurveEaseInOut, .AllowUserInteraction]
-        UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.0, options: options, animations: {
+        UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: options, animations: {
             
             initialTransitionView.frame = destinationFrame
             initialTransitionView.alpha = 0.0

@@ -15,8 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        let navController = UINavigationController(rootViewController:PresentingViewController())
+        
+        navController.navigationBar.tintColor = .darkGrayColor()
+        
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window?.rootViewController = PresentingViewController()
+        self.window?.rootViewController = navController
         self.window?.makeKeyAndVisible()
         
         return true

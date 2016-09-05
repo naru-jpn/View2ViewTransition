@@ -95,17 +95,17 @@ public class DismissInteractiveTransition: UIPercentDrivenInteractiveTransition 
                     self.animationController.destinationView.hidden = false
                     self.animationController.initialView.hidden = false
                     self.transitionController.presentingViewController.view.removeFromSuperview()
-                        
+                    
                     self.transitionContext.completeTransition(false)
                 })
                 
             } else {
-                
                 finishInteractiveTransition()
+                
                 self.transitionController.presentingViewController.view.userInteractionEnabled = false
                 
                 let duration: Double = animationController.transitionDuration
-                UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.0, options: .CurveEaseInOut, animations: {
+                UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .CurveEaseInOut, animations: {
                     
                     self.animationController.destinationTransitionView.alpha = 0.0
                     self.animationController.initialTransitionView.alpha = 1.0
@@ -114,10 +114,8 @@ public class DismissInteractiveTransition: UIPercentDrivenInteractiveTransition 
                     self.animationController.initialTransitionView.frame = self.animationController.initialFrame
                     
                 }, completion: { _ in
-                    
                     self.transitionController.presentingViewController.view.userInteractionEnabled = true
                     self.animationController.initialView.hidden = false
-                    self.transitionContext.completeTransition(true)
                 })
             }
             

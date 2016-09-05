@@ -8,21 +8,24 @@
 
 import UIKit
 
-public final class TransitionController: NSObject {
-
-    public var debuging: Bool = false
-    
+public final class TransitionController: NSObject {    
     public var userInfo: [String: AnyObject]? = nil
+    public var presentTransitionDuration: NSTimeInterval = 0.5
+    public var dismissTransitionDuration: NSTimeInterval = 0.3
     
+    public var debuging: Bool = false
+
     public lazy var presentAnimationController: PresentAnimationController = {
         let controller: PresentAnimationController = PresentAnimationController()
         controller.transitionController = self
+        controller.transitionDuration = self.presentTransitionDuration
         return controller
     }()
     
     public lazy var dismissAnimationController: DismissAnimationController = {
         let controller: DismissAnimationController = DismissAnimationController()
         controller.transitionController = self
+        controller.transitionDuration = self.dismissTransitionDuration
         return controller
     }()
     
@@ -49,7 +52,17 @@ public final class TransitionController: NSObject {
         // Present
         presentingViewController.presentViewController(presentedViewController, animated: true, completion: completion)
     }
+
+    /// Type Safe Present for Swift
+    public func push<T: View2ViewTransitionPresented, U: View2ViewTransitionPresenting where T: UIViewController, U: UIViewController>(viewController presentedViewController: T, on presentingViewController: U, attached: UIViewController, completion: (() -> Void)?) {
+                
+        self.presentingViewController = presentingViewController
+        self.presentedViewController = presentedViewController
         
+        // Present
+        presentingViewController.navigationController?.pushViewController(presentedViewController, animated: true)
+    }
+    
     @available(*, unavailable)
     /// Present for Objective-C
     public func present(viewController presentedViewController: UIViewController, on presentingViewController: UIViewController, attached: UIViewController, completion: (() -> Void)?) {
@@ -63,19 +76,66 @@ public final class TransitionController: NSObject {
         // Present
         presentingViewController.presentViewController(presentedViewController, animated: true, completion: completion)
     }
+    
+    @available(*, unavailable)
+    /// Present for Objective-C
+    public func push(viewController presentedViewController: UIViewController, on presentingViewController: UIViewController, attached: UIViewController, completion: (() -> Void)?) {
+        
+        self.presentingViewController = presentingViewController
+        self.presentedViewController = presentedViewController
+        
+        // Present
+        presentingViewController.navigationController?.pushViewController(presentedViewController, animated: true)
+    }
+    
+    public func registerNavigationController(navigationController: UINavigationController?) {
+        guard let navController = navigationController else { return }
+        
+        navController.delegate = self
+    }
+    
+    public func unregisterNavigationController(navigationController: UINavigationController?) {
+        guard let navController = navigationController else { return }
+        
+        navController.delegate = nil
+    }
 }
 
 extension TransitionController: UIViewControllerTransitioningDelegate {
     
     public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        self.presentAnimationController.isModalTransition = true
+        
         return self.presentAnimationController
     }
     
     public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        self.dismissAnimationController.isModalTransition = true
+
         return self.dismissAnimationController
     }
     
     public func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return dismissInteractiveTransition.interactionInProgress ? dismissInteractiveTransition : nil
+    }
+}
+
+extension TransitionController: UINavigationControllerDelegate {
+    public func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        if fromVC == presentingViewController {
+            self.presentAnimationController.isModalTransition = false
+            
+            return self.presentAnimationController
+        } else {
+            self.dismissAnimationController.isModalTransition = false
+
+            return self.dismissAnimationController
+        }
+    }
+    
+    public func navigationController(navigationController: UINavigationController, interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        
         return dismissInteractiveTransition.interactionInProgress ? dismissInteractiveTransition : nil
     }
 }

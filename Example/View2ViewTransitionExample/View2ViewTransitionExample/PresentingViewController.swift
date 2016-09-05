@@ -8,12 +8,16 @@
 
 import UIKit
 
+let destinationIndexPath = "destinationIndexPath"
+let initialIndexPath = "initialIndexPath"
+
 class PresentingViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.whiteColor()
         
+        self.navigationItem.titleView = self.segmentControl
         self.view.addSubview(self.collectionView)
     }
     
@@ -27,6 +31,7 @@ class PresentingViewController: UIViewController, UICollectionViewDelegate, UICo
         
         let lendth: CGFloat = (UIScreen.mainScreen().bounds.size.width - 4.0)/3.0
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        
         layout.itemSize = CGSize(width: lendth, height: lendth)
         layout.minimumLineSpacing = 1.0
         layout.minimumInteritemSpacing = 1.0
@@ -41,6 +46,24 @@ class PresentingViewController: UIViewController, UICollectionViewDelegate, UICo
         return collectionView
     }()
     
+    lazy var segmentControl: UISegmentedControl = {
+        let segmentControl = UISegmentedControl(items: ["Modal", "Navigation"])
+        
+        segmentControl.tintColor = UIColor.darkGrayColor()
+        segmentControl.selectedSegmentIndex = 0
+        segmentControl.addTarget(self, action: #selector(PresentingViewController.onTransitionTypeDidChange(_:)),
+                                 forControlEvents: .ValueChanged)
+        return segmentControl
+    }()
+    
+    func onTransitionTypeDidChange(segment: UISegmentedControl) {
+        if segment.selectedSegmentIndex == 0 {
+            transitionController.unregisterNavigationController(navigationController)
+        } else {
+            transitionController.registerNavigationController(navigationController)
+        }
+    }
+    
     // MARK: CollectionView Delegate
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -51,8 +74,21 @@ class PresentingViewController: UIViewController, UICollectionViewDelegate, UICo
         presentedViewController.transitioningDelegate = transitionController
         presentedViewController.transitionController = transitionController
         
-        transitionController.userInfo = ["destinationIndexPath": indexPath, "initialIndexPath": indexPath]
-        transitionController.present(viewController: presentedViewController, on: self, attached: presentedViewController, completion: nil)
+        transitionController.userInfo = [destinationIndexPath: indexPath, initialIndexPath: indexPath]
+        
+        if segmentControl.selectedSegmentIndex == 0 {
+            presentedViewController.isModalTransition = true
+            transitionController.present(viewController: presentedViewController,
+                                         on: self,
+                                         attached: presentedViewController,
+                                         completion: nil)
+        } else {
+            presentedViewController.isModalTransition = false
+            transitionController.push(viewController: presentedViewController,
+                                      on: self,
+                                      attached: presentedViewController,
+                                      completion: nil)
+        }
     }
     
     // MARK: CollectionView Data Source
@@ -81,7 +117,7 @@ extension PresentingViewController: View2ViewTransitionPresenting {
     
     func initialFrame(userInfo: [String: AnyObject]?, isPresenting: Bool) -> CGRect {
         
-        guard let indexPath: NSIndexPath = userInfo?["initialIndexPath"] as? NSIndexPath, attributes: UICollectionViewLayoutAttributes = self.collectionView.layoutAttributesForItemAtIndexPath(indexPath) else {
+        guard let indexPath: NSIndexPath = userInfo?[initialIndexPath] as? NSIndexPath, attributes: UICollectionViewLayoutAttributes = self.collectionView.layoutAttributesForItemAtIndexPath(indexPath) else {
             return CGRect.zero
         }
         return self.collectionView.convertRect(attributes.frame, toView: self.collectionView.superview)
@@ -89,7 +125,7 @@ extension PresentingViewController: View2ViewTransitionPresenting {
     
     func initialView(userInfo: [String: AnyObject]?, isPresenting: Bool) -> UIView {
         
-        let indexPath: NSIndexPath = userInfo!["initialIndexPath"] as! NSIndexPath
+        let indexPath: NSIndexPath = userInfo![initialIndexPath] as! NSIndexPath
         let cell: UICollectionViewCell = self.collectionView.cellForItemAtIndexPath(indexPath)!
         
         return cell.contentView
@@ -97,7 +133,7 @@ extension PresentingViewController: View2ViewTransitionPresenting {
     
     func prepareInitialView(userInfo: [String : AnyObject]?, isPresenting: Bool) {
         
-        let indexPath: NSIndexPath = userInfo!["initialIndexPath"] as! NSIndexPath
+        let indexPath: NSIndexPath = userInfo![initialIndexPath] as! NSIndexPath
         
         if !isPresenting && !self.collectionView.indexPathsForVisibleItems().contains(indexPath) {
             self.collectionView.reloadData()
