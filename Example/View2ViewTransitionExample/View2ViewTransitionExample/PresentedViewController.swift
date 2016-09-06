@@ -12,9 +12,13 @@ class PresentedViewController: UIViewController, UICollectionViewDelegate, UICol
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.addSubview(self.collectionView)
+        self.edgesForExtendedLayout = .None
+        
+        self.navigationItem.titleView = self.titleLabel
+        self.navigationItem.leftBarButtonItem = self.backItem
         self.view.backgroundColor = UIColor.whiteColor()
         
+        self.view.addSubview(self.collectionView)
         self.view.addSubview(self.closeButton)
     }
 
@@ -55,9 +59,23 @@ class PresentedViewController: UIViewController, UICollectionViewDelegate, UICol
         let frame: CGRect = CGRect(x: 0.0, y: 20.0, width: 60.0, height: 40.0)
         let button: UIButton = UIButton(frame: frame)
         button.setTitle("Close", forState: .Normal)
-        button.setTitleColor(UIColor.grayColor(), forState: .Normal)
+        button.setTitleColor(self.view.tintColor, forState: .Normal)
         button.addTarget(self, action: #selector(onCloseButtonClicked(_:)), forControlEvents: .TouchUpInside)
         return button
+    }()
+    
+    lazy var titleLabel: UILabel = {
+        let font: UIFont = UIFont.boldSystemFontOfSize(16.0)
+        let label: UILabel = UILabel()
+        label.font = font
+        label.text = "Detail"
+        label.sizeToFit()
+        return label
+    }()
+    
+    lazy var backItem: UIBarButtonItem = {
+        let item: UIBarButtonItem = UIBarButtonItem(title: "< Back", style: .Plain, target: self, action: #selector(onBackItemClicked(_:)))
+        return item
     }()
     
     // MARK: CollectionView Data Source
@@ -87,7 +105,18 @@ class PresentedViewController: UIViewController, UICollectionViewDelegate, UICol
         
         let indexPath: NSIndexPath = self.collectionView.indexPathsForVisibleItems().first!
         self.transitionController.userInfo = ["destinationIndexPath": indexPath, "initialIndexPath": indexPath]
+        
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func onBackItemClicked(sender: AnyObject) {
+        
+        let indexPath: NSIndexPath = self.collectionView.indexPathsForVisibleItems().first!
+        self.transitionController.userInfo = ["destinationIndexPath": indexPath, "initialIndexPath": indexPath]
+        
+        if let navigationController = self.navigationController {
+            navigationController.popViewControllerAnimated(true)
+        }
     }
     
     // MARK: Gesture Delegate

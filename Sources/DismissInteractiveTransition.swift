@@ -35,7 +35,14 @@ public class DismissInteractiveTransition: UIPercentDrivenInteractiveTransition 
             
             self.interactionInProgress = true
             self.initialPanPoint = panGestureRecognizer.locationInView(panGestureRecognizer.view)
-            self.transitionController.presentedViewController.dismissViewControllerAnimated(true, completion: nil)
+            
+            switch self.transitionController.type {
+            case .Presenting:
+                self.transitionController.presentedViewController.dismissViewControllerAnimated(true, completion: nil)
+            case .Pushing:
+                self.transitionController.presentedViewController.navigationController!.popViewControllerAnimated(true)
+            }
+            
             return
         }
         
@@ -114,6 +121,15 @@ public class DismissInteractiveTransition: UIPercentDrivenInteractiveTransition 
                     self.animationController.initialTransitionView.frame = self.animationController.initialFrame
                     
                 }, completion: { _ in
+                    
+                    if self.transitionController.type == .Pushing {
+                            
+                        self.animationController.destinationTransitionView.removeFromSuperview()
+                        self.animationController.initialTransitionView.removeFromSuperview()
+                            
+                        self.animationController.initialView.hidden = false
+                        self.animationController.destinationView.hidden = false
+                    }
                     
                     self.transitionController.presentingViewController.view.userInteractionEnabled = true
                     self.animationController.initialView.hidden = false

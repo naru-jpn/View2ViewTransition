@@ -14,6 +14,9 @@ class PresentingViewController: UIViewController, UICollectionViewDelegate, UICo
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.whiteColor()
         
+        self.navigationItem.titleView = self.titleLabel
+        self.navigationItem.leftBarButtonItem = self.closeItem
+        
         self.view.addSubview(self.collectionView)
     }
     
@@ -41,6 +44,20 @@ class PresentingViewController: UIViewController, UICollectionViewDelegate, UICo
         return collectionView
     }()
     
+    lazy var titleLabel: UILabel = {
+        let font: UIFont = UIFont(name: "Futura-Medium", size: 16.0)!
+        let label: UILabel = UILabel()
+        label.font = font
+        label.text = "All"
+        label.sizeToFit()
+        return label
+    }()
+    
+    lazy var closeItem: UIBarButtonItem = {
+        let item: UIBarButtonItem = UIBarButtonItem(title: "Close", style: .Plain, target: self, action: #selector(onCloseButtonClicked(_:)))
+        return item
+    }()
+    
     // MARK: CollectionView Delegate
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -48,11 +65,35 @@ class PresentingViewController: UIViewController, UICollectionViewDelegate, UICo
         self.selectedIndexPath = indexPath
         
         let presentedViewController: PresentedViewController = PresentedViewController()
-        presentedViewController.transitioningDelegate = transitionController
-        presentedViewController.transitionController = transitionController
         
-        transitionController.userInfo = ["destinationIndexPath": indexPath, "initialIndexPath": indexPath]
-        transitionController.present(viewController: presentedViewController, on: self, attached: presentedViewController, completion: nil)
+        presentedViewController.transitionController = self.transitionController
+        self.transitionController.userInfo = ["destinationIndexPath": indexPath, "initialIndexPath": indexPath]
+        
+        // This example will push view controller if presenting view controller has navigation controller.
+        // Otherwise, present onother view controller
+        if let navigationController = self.navigationController {
+            
+            // Set transitionController as a navigation controller delegate and push.
+            navigationController.delegate = transitionController
+            transitionController.push(viewController: presentedViewController, on: self, attached: presentedViewController)
+        
+        } else {
+            
+            // Set transitionController as a transition delegate and present.
+            presentedViewController.transitioningDelegate = transitionController
+            transitionController.present(viewController: presentedViewController, on: self, attached: presentedViewController, completion: nil)
+        }
+        
+        collectionView.deselectItemAtIndexPath(indexPath, animated: true)
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+       
+        if let _ = self.navigationController { return }
+        
+        if scrollView.contentOffset.y <= -100.0 {
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
     
     // MARK: CollectionView Data Source
@@ -74,6 +115,12 @@ class PresentingViewController: UIViewController, UICollectionViewDelegate, UICo
         cell.content.image = UIImage(named: "image\(number)")
         
         return cell
+    }
+    
+    // MARK: Actions
+    
+    func onCloseButtonClicked(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 }
 
