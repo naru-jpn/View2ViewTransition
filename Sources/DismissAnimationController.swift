@@ -91,6 +91,7 @@ public final class DismissAnimationController: NSObject, UIViewControllerAnimate
         let isNeedToControlToViewController: Bool = toViewControllerView.superview == nil
         if isNeedToControlToViewController {
             containerView.addSubview(toViewControllerView)
+            containerView.sendSubviewToBack(toViewControllerView)
         }
         
         // Add Snapshot
