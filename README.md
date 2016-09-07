@@ -73,6 +73,22 @@ You can set userInfo to notify indexPath or share resource etc.
 transitionController.userInfo = ["key": "value", ...]
 ```
 
+### Modify Animation Parameters
+
+Animate with custom animation parameters.
+
+```swift
+// For present
+transitionController.presentAnimationController.usingSpringWithDamping = 0.7
+transitionController.presentAnimationController.initialSpringVelocity = 0.0
+transitionController.presentAnimationController.animationOptions = [.CurveEaseInOut]
+
+// For dismiss
+transitionController.dismissAnimationController.usingSpringWithDamping = 0.7
+transitionController.dismissAnimationController.initialSpringVelocity = 0.0
+transitionController.dismissAnimationController.animationOptions = [.CurveEaseInOut]
+```
+
 ### Debug Mode
 
 If you have hierarchical view controllers (navigation controllers) in app, viewController to conform protocol is not intuitive. View2ViewTransition prints some information in debug mode. 
