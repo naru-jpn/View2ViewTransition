@@ -16,6 +16,18 @@ public final class DismissAnimationController: NSObject, UIViewControllerAnimate
     
     public var transitionDuration: NSTimeInterval = 0.5
     
+    public var usingSpringWithDamping: CGFloat = 0.7
+    
+    public var initialSpringVelocity: CGFloat = 0.0
+    
+    public var animationOptions: UIViewAnimationOptions = [.CurveEaseInOut, .AllowUserInteraction]
+    
+    public var usingSpringWithDampingCancelling: CGFloat = 1.0
+    
+    public var initialSpringVelocityCancelling: CGFloat = 0.0
+    
+    public var animationOptionsCancelling: UIViewAnimationOptions = [.CurveEaseInOut, .AllowUserInteraction]
+
     private(set) var initialView: UIView!
     
     private(set) var destinationView: UIView!
@@ -104,11 +116,10 @@ public final class DismissAnimationController: NSObject, UIViewControllerAnimate
         
         // Animation
         let duration: NSTimeInterval = transitionDuration(transitionContext)
-        let options: UIViewAnimationOptions = [.CurveEaseInOut, .AllowUserInteraction]
         
         if transitionContext.isInteractive() {
             
-            UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: options, animations: {
+            UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: self.usingSpringWithDampingCancelling, initialSpringVelocity: self.initialSpringVelocityCancelling, options: self.animationOptionsCancelling, animations: {
                 
                 fromViewControllerView.alpha = CGFloat.min
          
@@ -116,7 +127,7 @@ public final class DismissAnimationController: NSObject, UIViewControllerAnimate
             
         } else {
             
-            UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.0, options: options, animations: {
+            UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: self.usingSpringWithDamping, initialSpringVelocity: self.initialSpringVelocity, options: self.animationOptions, animations: {
                 
                 self.destinationTransitionView.frame = self.initialFrame
                 self.initialTransitionView.frame = self.initialFrame

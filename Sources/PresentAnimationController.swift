@@ -16,6 +16,12 @@ public final class PresentAnimationController: NSObject, UIViewControllerAnimate
     
     public var transitionDuration: NSTimeInterval = 0.5
     
+    public var usingSpringWithDamping: CGFloat = 0.7
+    
+    public var initialSpringVelocity: CGFloat = 0.0
+    
+    public var animationOptions: UIViewAnimationOptions = [.CurveEaseInOut, .AllowUserInteraction]
+    
     // MARK: Transition
 
     public func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
@@ -84,8 +90,7 @@ public final class PresentAnimationController: NSObject, UIViewControllerAnimate
         
         // Animation
         let duration: NSTimeInterval = transitionDuration(transitionContext)
-        let options: UIViewAnimationOptions = [.CurveEaseInOut, .AllowUserInteraction]
-        UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.0, options: options, animations: {
+        UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: self.usingSpringWithDamping, initialSpringVelocity: self.initialSpringVelocity, options: self.animationOptions, animations: {
             
             initialTransitionView.frame = destinationFrame
             initialTransitionView.alpha = 0.0
