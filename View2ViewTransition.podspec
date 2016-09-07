@@ -1,4 +1,4 @@
-@version = "0.0.6"
+@version = "0.1.0"
 
 Pod::Spec.new do |s|
   s.name                  = "View2ViewTransition"
