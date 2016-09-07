@@ -109,7 +109,9 @@ public final class DismissAnimationController: NSObject, UIViewControllerAnimate
         if transitionContext.isInteractive() {
             
             UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: options, animations: {
+                
                 fromViewControllerView.alpha = CGFloat.min
+         
             }, completion: nil)
             
         } else {
@@ -125,7 +127,8 @@ public final class DismissAnimationController: NSObject, UIViewControllerAnimate
                     
                 self.destinationTransitionView.removeFromSuperview()
                 self.initialTransitionView.removeFromSuperview()
-                if isNeedToControlToViewController {
+                
+                if isNeedToControlToViewController && self.transitionController.type == .Presenting {
                     toViewControllerView.removeFromSuperview()
                 }
                 

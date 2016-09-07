@@ -18,6 +18,7 @@
 		4389BB951D73FB63000CD88C /* PresentAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4389BB901D73FB63000CD88C /* PresentAnimationController.swift */; };
 		4389BB961D73FB63000CD88C /* TransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4389BB911D73FB63000CD88C /* TransitionController.swift */; };
 		4389BBAF1D74311E000CD88C /* UIView+SnapshotImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4389BBAE1D74311E000CD88C /* UIView+SnapshotImage.swift */; };
+		43A6266A1D7E792E00E86FEC /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A626691D7E792E00E86FEC /* MenuViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		4389BB901D73FB63000CD88C /* PresentAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresentAnimationController.swift; path = ../../../Sources/PresentAnimationController.swift; sourceTree = "<group>"; };
 		4389BB911D73FB63000CD88C /* TransitionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransitionController.swift; path = ../../../Sources/TransitionController.swift; sourceTree = "<group>"; };
 		4389BBAE1D74311E000CD88C /* UIView+SnapshotImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+SnapshotImage.swift"; path = "../../../Sources/UIView+SnapshotImage.swift"; sourceTree = "<group>"; };
+		43A626691D7E792E00E86FEC /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				4389BB761D73FA96000CD88C /* AppDelegate.swift */,
+				43A626691D7E792E00E86FEC /* MenuViewController.swift */,
 				4389BB891D73FB3F000CD88C /* PresentingViewController.swift */,
 				4389BB881D73FB3F000CD88C /* PresentedViewController.swift */,
 				4389BB7D1D73FA96000CD88C /* Assets.xcassets */,
@@ -162,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4389BB941D73FB63000CD88C /* DismissInteractiveTransition.swift in Sources */,
+				43A6266A1D7E792E00E86FEC /* MenuViewController.swift in Sources */,
 				4389BB951D73FB63000CD88C /* PresentAnimationController.swift in Sources */,
 				4389BBAF1D74311E000CD88C /* UIView+SnapshotImage.swift in Sources */,
 				4389BB771D73FA96000CD88C /* AppDelegate.swift in Sources */,
@@ -311,6 +315,7 @@
 				4389BB871D73FA96000CD88C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
