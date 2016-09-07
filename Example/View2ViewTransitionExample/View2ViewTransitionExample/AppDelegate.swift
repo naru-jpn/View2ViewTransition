@@ -15,12 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        let rootViewController = MenuViewController()
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window?.rootViewController = rootViewController
+        self.window?.rootViewController = MenuViewController()
         self.window?.makeKeyAndVisible()
-        
-        rootViewController.presentViewController(PresentingViewController(), animated: false, completion: nil)
         
         return true
     }

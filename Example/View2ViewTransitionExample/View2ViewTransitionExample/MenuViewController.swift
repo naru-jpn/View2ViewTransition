@@ -17,6 +17,16 @@ class MenuViewController: UIViewController {
         self.view.addSubview(self.tableView)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        guard !self.isViewControllerInitialized else {
+            return
+        }
+        self.isViewControllerInitialized = true
+        self.presentViewController(PresentingViewController(), animated: true, completion: nil)
+    }
+    
     // MARK: Constants
     
     private struct Constants {
@@ -25,6 +35,8 @@ class MenuViewController: UIViewController {
     }
     
     // MARK: Elements
+    
+    private var isViewControllerInitialized: Bool = false
     
     lazy var tableView: UITableView = {
         let tableView: UITableView = UITableView(frame: self.view.bounds, style: .Grouped)

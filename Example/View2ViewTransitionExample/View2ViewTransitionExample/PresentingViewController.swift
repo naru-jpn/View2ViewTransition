@@ -70,7 +70,7 @@ class PresentingViewController: UIViewController, UICollectionViewDelegate, UICo
         self.transitionController.userInfo = ["destinationIndexPath": indexPath, "initialIndexPath": indexPath]
         
         // This example will push view controller if presenting view controller has navigation controller.
-        // Otherwise, present onother view controller
+        // Otherwise, present another view controller
         if let navigationController = self.navigationController {
             
             // Set transitionController as a navigation controller delegate and push.
