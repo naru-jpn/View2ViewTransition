@@ -22,7 +22,7 @@ pod 'View2ViewTransition'
 
 ## Usage
 
-__Create TransitionController and implement presentation__ (also supports push)
+__Create TransitionController and implement presentation__
 
 ```swift
 // Create TransitionController
@@ -36,6 +36,8 @@ presentedViewController.transitioningDelegate = transitionController
 
 transitionController.present(viewController: presentedViewController, on: self, attached: presentedViewController, completion: nil)
 ```
+
+(also supports push)
 
 ```swift
 // Set transitionController as a navigation controller delegate and push.
