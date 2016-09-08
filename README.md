@@ -6,7 +6,7 @@ Simple framework for custom interactive viewController transition from one view 
 
 <img src="https://github.com/naru-jpn/View2ViewTransition/blob/master/preview.gif?raw=true" width="300">
 
-## installation
+## Installation
 
 __Carthage__
 
