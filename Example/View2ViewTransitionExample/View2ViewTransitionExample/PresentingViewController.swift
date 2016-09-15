@@ -128,7 +128,7 @@ extension PresentingViewController: View2ViewTransitionPresenting {
     
     func initialFrame(userInfo: [String: AnyObject]?, isPresenting: Bool) -> CGRect {
         
-        guard let indexPath: NSIndexPath = userInfo?["initialIndexPath"] as? NSIndexPath, attributes: UICollectionViewLayoutAttributes = self.collectionView.layoutAttributesForItemAtIndexPath(indexPath) else {
+        guard let indexPath: NSIndexPath = userInfo?["initialIndexPath"] as? NSIndexPath, let attributes: UICollectionViewLayoutAttributes = self.collectionView.layoutAttributesForItemAtIndexPath(indexPath) else {
             return CGRect.zero
         }
         return self.collectionView.convertRect(attributes.frame, toView: self.collectionView.superview)

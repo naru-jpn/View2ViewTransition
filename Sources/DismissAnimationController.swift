@@ -63,15 +63,14 @@ public final class DismissAnimationController: NSObject, UIViewControllerAnimate
             }
             return
         }
-        guard let containerView = transitionContext.containerView() else {
-            return
-        }
         
         if self.transitionController.debuging {
             debugPrint("View2ViewTransition << Will Dismiss")
             debugPrint(" Presented view controller: \(fromViewController)")
             debugPrint(" Presenting view controller: \(toViewController)")
         }
+        
+        let containerView = transitionContext.containerView()
         
         fromViewController.prepareDestinationView(self.transitionController.userInfo, isPresenting: false)
         self.destinationView = fromViewController.destinationView(self.transitionController.userInfo, isPresenting: false)

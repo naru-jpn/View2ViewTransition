@@ -45,15 +45,14 @@ public final class PresentAnimationController: NSObject, UIViewControllerAnimate
             }
             return
         }
-        guard let containerView = transitionContext.containerView() else {
-            return
-        }
         
         if self.transitionController.debuging {
             debugPrint("View2ViewTransition << Will Present")
             debugPrint(" Presenting view controller: \(fromViewController)")
             debugPrint(" Presented view controller: \(toViewController)")
         }
+        
+        let containerView = transitionContext.containerView()
 
         fromViewController.prepareInitialView(self.transitionController.userInfo, isPresenting: true)
         let initialView: UIView = fromViewController.initialView(self.transitionController.userInfo, isPresenting: true)
