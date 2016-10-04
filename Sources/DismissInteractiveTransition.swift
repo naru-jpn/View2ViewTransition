@@ -101,7 +101,7 @@ public class DismissInteractiveTransition: UIPercentDrivenInteractiveTransition 
                         
                     self.animationController.destinationView.hidden = false
                     self.animationController.initialView.hidden = false
-                    self.transitionController.presentingViewController.view.removeFromSuperview()
+//                    self.transitionController.presentingViewController.view.removeFromSuperview()
                         
                     self.transitionContext.completeTransition(false)
                 })
