@@ -8,29 +8,29 @@
 
 import UIKit
 
-class MenuViewController: UIViewController {
+public class MenuViewController: UIViewController {
 
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
 
         self.view.addSubview(self.tableView)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override public func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         guard !self.isViewControllerInitialized else {
             return
         }
         self.isViewControllerInitialized = true
-        self.presentViewController(PresentingViewController(), animated: true, completion: nil)
+        self.present(PresentingViewController(), animated: true, completion: nil)
     }
     
     // MARK: Constants
     
     private struct Constants {
-        static let Font: UIFont = UIFont.systemFontOfSize(15.0)
+        static let Font: UIFont = UIFont.systemFont(ofSize: 15.0)
         static let ButtonSize: CGSize = CGSize(width: 200.0, height: 44.0)
     }
     
@@ -39,10 +39,10 @@ class MenuViewController: UIViewController {
     private var isViewControllerInitialized: Bool = false
     
     lazy var tableView: UITableView = {
-        let tableView: UITableView = UITableView(frame: self.view.bounds, style: .Grouped)
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        tableView.registerClass(TableViewSectionHeader.self, forHeaderFooterViewReuseIdentifier: "header")
-        tableView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        let tableView: UITableView = UITableView(frame: self.view.bounds, style: .grouped)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(TableViewSectionHeader.self, forHeaderFooterViewReuseIdentifier: "header")
+        tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
@@ -50,28 +50,24 @@ class MenuViewController: UIViewController {
 }
 
 extension MenuViewController: UITableViewDataSource {
-
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    
+    public func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return tableView.dequeueReusableHeaderFooterViewWithIdentifier("header")
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-        self.configulerCell(cell, at: indexPath)
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath as IndexPath)
+        self.configulerCell(cell, at: indexPath as NSIndexPath)
         return cell
     }
     
-    func configulerCell(cell: UITableViewCell, at indexPath: NSIndexPath) {
-        cell.accessoryType = .DisclosureIndicator
-        cell.textLabel?.font = UIFont.systemFontOfSize(14.0)
+    func configulerCell(_ cell: UITableViewCell, at indexPath: NSIndexPath) {
+        cell.accessoryType = .disclosureIndicator
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 14.0)
         switch indexPath.row {
         case 0:
             cell.textLabel?.text = "Present and Dismiss"
@@ -85,24 +81,28 @@ extension MenuViewController: UITableViewDataSource {
 
 extension MenuViewController: UITableViewDelegate {
 
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return TableViewSectionHeader.Constants.Height
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return tableView.dequeueReusableHeaderFooterView(withIdentifier: "header")
+    }
+
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44.0
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            self.presentViewController(PresentingViewController(), animated: true, completion: nil)
+            self.present(PresentingViewController(), animated: true, completion: nil)
         case 1:
-            self.presentViewController(UINavigationController(rootViewController: PresentingViewController()), animated: true, completion: nil)
+            self.present(UINavigationController(rootViewController: PresentingViewController()), animated: true, completion: nil)
         default:
             break
         }
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
     }
 }
 
@@ -110,8 +110,8 @@ private class TableViewSectionHeader: UITableViewHeaderFooterView {
     
     struct Constants {
         static let Height: CGFloat = 60.0
-        static let Width: CGFloat = UIScreen.mainScreen().bounds.width
-        static let Font: UIFont = UIFont.boldSystemFontOfSize(14.0)
+        static let Width: CGFloat = UIScreen.main.bounds.width
+        static let Font: UIFont = UIFont.boldSystemFont(ofSize: 14.0)
     }
     
     override init(reuseIdentifier: String?) {
