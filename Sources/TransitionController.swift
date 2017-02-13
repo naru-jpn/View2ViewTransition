@@ -17,7 +17,7 @@ public final class TransitionController: NSObject {
     
     public var debuging: Bool = false
     
-    public var userInfo: [String: AnyObject]? = nil
+    public var userInfo: [String: Any]? = nil
     
     private(set) var type: TransitionControllerType = .presenting
     
