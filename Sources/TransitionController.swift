@@ -40,7 +40,7 @@ public final class TransitionController: NSObject {
         return interactiveTransition
     }()
     
-    fileprivate(set) var presentingViewController: UIViewController!
+    fileprivate(set) weak var presentingViewController: UIViewController!
     
     fileprivate(set) var presentedViewController: UIViewController!
 
