@@ -119,7 +119,7 @@ class PresentingViewController: UIViewController, UICollectionViewDelegate, UICo
     
     // MARK: Actions
     
-    func onCloseButtonClicked(sender: AnyObject) {
+    @objc func onCloseButtonClicked(sender: AnyObject) {
         self.dismiss(animated: true, completion: nil)
     }
 }

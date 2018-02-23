@@ -63,16 +63,16 @@ public final class TransitionController: NSObject {
     /// Present for Objective-C
     public func present(viewController presentedViewController: UIViewController, on presentingViewController: UIViewController, attached: UIViewController, completion: (() -> Void)?) {
     
+        self.presentingViewController = presentingViewController
+        self.presentedViewController = presentedViewController
+        
         let pan = UIPanGestureRecognizer(target: dismissInteractiveTransition, action: #selector(dismissInteractiveTransition.handlePanGesture(_:)))
         attached.view.addGestureRecognizer(pan)
         
-        self.presentingViewController = presentingViewController
-        self.presentedViewController = presentedViewController
-
         self.type = .presenting
         
         // Present
-        presentingViewController.present(presentedViewController, animated: true, completion: completion)
+        self.presentingViewController.present(self.presentedViewController, animated: true, completion: completion)
     }
     
     /// Type Safe Push for Swift
@@ -101,6 +101,9 @@ public final class TransitionController: NSObject {
     /// Push for Objective-C
     public func push(viewController presentedViewController: UIViewController, on presentingViewController: UIViewController, attached: UIViewController) {
         
+        self.presentingViewController = presentingViewController
+        self.presentedViewController = presentedViewController
+        
         guard let navigationController = presentingViewController.navigationController else {
             if self.debuging {
                 debugPrint("View2ViewTransition << Cannot Find Navigation Controller for Presenting View Controller")
@@ -111,24 +114,23 @@ public final class TransitionController: NSObject {
         let pan = UIPanGestureRecognizer(target: dismissInteractiveTransition, action: #selector(dismissInteractiveTransition.handlePanGesture(_:)))
         attached.view.addGestureRecognizer(pan)
         
-        self.presentingViewController = presentingViewController
-        self.presentedViewController = presentedViewController
-        
         self.type = .pushing
-        
+
         // Push
-        navigationController.pushViewController(presentedViewController, animated: true)
+        navigationController.pushViewController(self.presentedViewController, animated: true)
     }
 }
 
 extension TransitionController: UIViewControllerTransitioningDelegate {
     
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return self.presentAnimationController
+        presentAnimationController.prepare()
+        return presentAnimationController
     }
     
     public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return self.dismissAnimationController
+        dismissAnimationController.prepare()
+        return dismissAnimationController
     }
     
     public func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
@@ -141,9 +143,11 @@ extension TransitionController: UINavigationControllerDelegate {
     public func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         switch operation {
         case .push:
-            return self.presentAnimationController
+            presentAnimationController.prepare()
+            return presentAnimationController
         case .pop:
-            return self.dismissAnimationController
+            dismissAnimationController.prepare()
+            return dismissAnimationController
         default:
             return nil
         }

@@ -100,7 +100,7 @@ class PresentedViewController: UIViewController, UICollectionViewDelegate, UICol
     
     // MARK: Actions
     
-    func onCloseButtonClicked(sender: AnyObject) {
+    @objc func onCloseButtonClicked(sender: AnyObject) {
         
         let indexPath: NSIndexPath = self.collectionView.indexPathsForVisibleItems.first! as NSIndexPath
 
@@ -109,7 +109,7 @@ class PresentedViewController: UIViewController, UICollectionViewDelegate, UICol
         self.dismiss(animated: true, completion: nil)
     }
     
-    func onBackItemClicked(sender: AnyObject) {
+    @objc func onBackItemClicked(sender: AnyObject) {
         
         let indexPath: NSIndexPath = self.collectionView.indexPathsForVisibleItems.first! as NSIndexPath
         self.transitionController.userInfo = ["destinationIndexPath": indexPath, "initialIndexPath": indexPath]
@@ -128,7 +128,7 @@ class PresentedViewController: UIViewController, UICollectionViewDelegate, UICol
 
         let panGestureRecognizer: UIPanGestureRecognizer = gestureRecognizer as! UIPanGestureRecognizer
         let transate: CGPoint = panGestureRecognizer.translation(in: self.view)
-        return Double(abs(transate.y)/abs(transate.x)) > M_PI_4
+        return Double(abs(transate.y)/abs(transate.x)) > .pi / 4.0
     }
 }
 

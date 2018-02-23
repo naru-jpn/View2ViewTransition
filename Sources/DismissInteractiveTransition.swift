@@ -29,7 +29,7 @@ open class DismissInteractiveTransition: UIPercentDrivenInteractiveTransition {
         super.startInteractiveTransition(transitionContext)
     }
     
-    open func handlePanGesture(_ panGestureRecognizer: UIPanGestureRecognizer) {
+    @objc open func handlePanGesture(_ panGestureRecognizer: UIPanGestureRecognizer) {
         
         if panGestureRecognizer.state == .began {
             
