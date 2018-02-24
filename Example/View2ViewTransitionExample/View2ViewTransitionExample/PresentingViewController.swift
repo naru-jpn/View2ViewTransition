@@ -107,13 +107,9 @@ class PresentingViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         let cell: PresentingCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "presenting_cell", for: indexPath) as! PresentingCollectionViewCell
         cell.contentView.backgroundColor = UIColor.lightGray
-        
-        let number: Int = indexPath.item%4 + 1
-        cell.content.image = UIImage(named: "image\(number)")
-        
+        cell.content.image = UIImage(named: "image\(indexPath.item%4 + 1)")
         return cell
     }
     

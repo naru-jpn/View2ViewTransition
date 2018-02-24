@@ -34,7 +34,8 @@ open class DismissInteractiveTransition: UIPercentDrivenInteractiveTransition {
         if panGestureRecognizer.state == .began {
             
             self.interactionInProgress = true
-            self.initialPanPoint = panGestureRecognizer.location(in: panGestureRecognizer.view)
+            panGestureRecognizer.setTranslation(CGPoint.zero, in: panGestureRecognizer.view)
+            initialPanPoint = panGestureRecognizer.location(in: panGestureRecognizer.view)
             
             switch self.transitionController.type {
             case .presenting:
@@ -66,12 +67,10 @@ open class DismissInteractiveTransition: UIPercentDrivenInteractiveTransition {
             
             // Affine Transform
             let scale: CGFloat = (1000.0 - CGFloat(distance))/1000.0
-            var transform = CGAffineTransform.identity
-            transform = transform.scaledBy(x: scale, y: scale)
-            transform = transform.translatedBy(x: translation.x/scale, y: translation.y/scale)
+            let transform = CGAffineTransform.identity.scaledBy(x: scale, y: scale).translatedBy(x: translation.x/scale, y: translation.y/scale)
             
-            self.animationController.destinationTransitionView.transform = transform
-            self.animationController.initialTransitionView.transform = transform
+            animationController.destinationTransitionView.transform = transform
+            animationController.initialTransitionView.transform = transform
             
         case .cancelled:
             
@@ -81,7 +80,6 @@ open class DismissInteractiveTransition: UIPercentDrivenInteractiveTransition {
         case .ended:
             
             self.interactionInProgress = false
-            panGestureRecognizer.setTranslation(CGPoint.zero, in: panGestureRecognizer.view)
             
             if progress < 0.5 {
                 
