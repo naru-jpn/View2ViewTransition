@@ -8,18 +8,17 @@
 
 import UIKit
 
-class PresentedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate {
+class PresentedViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.edgesForExtendedLayout = []
         
-        self.navigationItem.titleView = self.titleLabel
-        self.navigationItem.leftBarButtonItem = self.backItem
-        self.view.backgroundColor = UIColor.white
+        navigationItem.titleView = titleLabel
+        navigationItem.leftBarButtonItem = backItem
+        view.backgroundColor = UIColor.white
         
-        self.view.addSubview(self.collectionView)
-        self.view.addSubview(self.closeButton)
+        view.addSubview(self.collectionView)
+        view.addSubview(self.closeButton)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -41,9 +40,6 @@ class PresentedViewController: UIViewController, UICollectionViewDelegate, UICol
     lazy var collectionView: UICollectionView = {
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.itemSize = self.view.bounds.size
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
         layout.scrollDirection = .horizontal
         
         let collectionView: UICollectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: layout)
@@ -78,7 +74,32 @@ class PresentedViewController: UIViewController, UICollectionViewDelegate, UICol
         return item
     }()
     
-    // MARK: CollectionView Data Source
+    // MARK: - UICollectionViewDelegateFlowLayout
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width: CGFloat = view.bounds.width
+        let height: CGFloat
+        if let navigationController: UINavigationController = navigationController {
+            if #available(iOS 11.0, *) {
+                height = collectionView.bounds.height - navigationController.view.safeAreaInsets.top - navigationController.view.safeAreaInsets.bottom - 44.0
+            } else {
+                height = collectionView.bounds.height - navigationController.navigationBar.bounds.height
+            }
+        } else {
+            height = collectionView.bounds.height
+        }
+        return CGSize(width: width, height: height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.0
+    }      
+    
+    // MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 50
@@ -91,25 +112,19 @@ class PresentedViewController: UIViewController, UICollectionViewDelegate, UICol
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: PresentedCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "presented_cell", for: indexPath) as! PresentedCollectionViewCell
         cell.contentView.backgroundColor = UIColor.white
-        
-        let number: Int = indexPath.item%4 + 1
-        cell.content.image = UIImage(named: "image\(number)")
-        
+        cell.content.image = UIImage(named: "image\(indexPath.item%4 + 1)")
         return cell
     }
     
     // MARK: Actions
     
-    func onCloseButtonClicked(sender: AnyObject) {
-        
+    @objc func onCloseButtonClicked(sender: AnyObject) {
         let indexPath: NSIndexPath = self.collectionView.indexPathsForVisibleItems.first! as NSIndexPath
-
         self.transitionController.userInfo = ["destinationIndexPath": indexPath, "initialIndexPath": indexPath]
-
         self.dismiss(animated: true, completion: nil)
     }
     
-    func onBackItemClicked(sender: AnyObject) {
+    @objc func onBackItemClicked(sender: AnyObject) {
         
         let indexPath: NSIndexPath = self.collectionView.indexPathsForVisibleItems.first! as NSIndexPath
         self.transitionController.userInfo = ["destinationIndexPath": indexPath, "initialIndexPath": indexPath]
@@ -128,17 +143,23 @@ class PresentedViewController: UIViewController, UICollectionViewDelegate, UICol
 
         let panGestureRecognizer: UIPanGestureRecognizer = gestureRecognizer as! UIPanGestureRecognizer
         let transate: CGPoint = panGestureRecognizer.translation(in: self.view)
-        return Double(abs(transate.y)/abs(transate.x)) > M_PI_4
+        return Double(abs(transate.y)/abs(transate.x)) > .pi / 4.0
     }
 }
 
 extension PresentedViewController: View2ViewTransitionPresented {
     
     func destinationFrame(_ userInfo: [String: Any]?, isPresenting: Bool) -> CGRect {
-        
         let indexPath: IndexPath = userInfo!["destinationIndexPath"] as! IndexPath
         let cell: PresentedCollectionViewCell = self.collectionView.cellForItem(at: indexPath) as! PresentedCollectionViewCell
-        return cell.content.frame
+        // FIXME: Get frame on collection view more smart!!
+        if let _ = navigationController, #available(iOS 11.0, *) {
+            var frame: CGRect = cell.contentView.convert(cell.content.frame, to: view)
+            frame.origin.y += 27.0
+            return frame
+        } else {
+            return cell.contentView.convert(cell.content.frame, to: view)
+        }
     }
 
     func destinationView(_ userInfo: [String: Any]?, isPresenting: Bool) -> UIView {
@@ -162,22 +183,22 @@ extension PresentedViewController: View2ViewTransitionPresented {
     }
 }
 
-public class PresentedCollectionViewCell: UICollectionViewCell {
+class PresentedCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.contentView.addSubview(self.content)
+        contentView.addSubview(content)
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public lazy var content: UIImageView = {
+    lazy var content: UIImageView = {
         let margin: CGFloat = 2.0
-        let width: CGFloat = (UIScreen.main.bounds.size.width - margin*2.0)
-        let height: CGFloat = (UIScreen.main.bounds.size.height - 160.0)
-        let frame: CGRect = CGRect(x: margin, y: (UIScreen.main.bounds.size.height - height)/2.0, width: width, height: height)
+        let width: CGFloat = (bounds.size.width - margin*2.0)
+        let height: CGFloat = (bounds.size.height - 160.0)
+        let frame: CGRect = CGRect(x: margin, y: (bounds.size.height - height)/2.0, width: width, height: height)
         let view: UIImageView = UIImageView(frame: frame)
         view.backgroundColor = UIColor.gray
         view.clipsToBounds = true

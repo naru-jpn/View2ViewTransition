@@ -11,15 +11,14 @@ import UIKit
 public extension UIView {
     
     public func snapshotImage() -> UIImage? {
-        
-        let size: CGSize = CGSize(width: floor(self.frame.size.width), height: floor(self.frame.size.height))
+        let size: CGSize = CGSize(width: floor(frame.size.width), height: floor(frame.size.height))
         UIGraphicsBeginImageContextWithOptions(size, true, 0.0)
-        
-        self.drawHierarchy(in: self.bounds, afterScreenUpdates: true)
+        guard let context = UIGraphicsGetCurrentContext() else {
+            return nil
+        }
+        layer.render(in: context)
         let snapshot: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
-        
         UIGraphicsEndImageContext()
-        
         return snapshot
     }
 }
