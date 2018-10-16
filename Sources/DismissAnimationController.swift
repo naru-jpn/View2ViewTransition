@@ -33,13 +33,13 @@ public final class DismissAnimationController: NSObject, UIViewControllerAnimate
     
     public var initialSpringVelocity: CGFloat = 0.0
     
-    public var animationOptions: UIViewAnimationOptions = [.curveEaseInOut, .allowUserInteraction]
+    public var animationOptions: UIView.AnimationOptions = [.curveEaseInOut, .allowUserInteraction]
     
     public var usingSpringWithDampingCancelling: CGFloat = 1.0
     
     public var initialSpringVelocityCancelling: CGFloat = 0.0
     
-    public var animationOptionsCancelling: UIViewAnimationOptions = [.curveEaseInOut, .allowUserInteraction]
+    public var animationOptionsCancelling: UIView.AnimationOptions = [.curveEaseInOut, .allowUserInteraction]
 
     fileprivate(set) var initialView: UIView!
     
@@ -128,7 +128,7 @@ public final class DismissAnimationController: NSObject, UIViewControllerAnimate
         let isNeedToControlToViewController: Bool = toViewControllerView.superview == nil
         if isNeedToControlToViewController {
             containerView.addSubview(toViewControllerView)
-            containerView.sendSubview(toBack: toViewControllerView)
+            containerView.sendSubviewToBack(toViewControllerView)
         }
         
         // Add Snapshot
