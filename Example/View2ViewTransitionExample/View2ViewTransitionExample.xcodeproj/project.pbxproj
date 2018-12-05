@@ -12,13 +12,13 @@
 		4389BB811D73FA96000CD88C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4389BB7F1D73FA96000CD88C /* LaunchScreen.storyboard */; };
 		4389BB8A1D73FB3F000CD88C /* PresentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4389BB881D73FB3F000CD88C /* PresentedViewController.swift */; };
 		4389BB8B1D73FB3F000CD88C /* PresentingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4389BB891D73FB3F000CD88C /* PresentingViewController.swift */; };
-		4389BB921D73FB63000CD88C /* View2ViewTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4389BB8D1D73FB63000CD88C /* View2ViewTransition.swift */; };
-		4389BB931D73FB63000CD88C /* DismissAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4389BB8E1D73FB63000CD88C /* DismissAnimationController.swift */; };
-		4389BB941D73FB63000CD88C /* DismissInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4389BB8F1D73FB63000CD88C /* DismissInteractiveTransition.swift */; };
-		4389BB951D73FB63000CD88C /* PresentAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4389BB901D73FB63000CD88C /* PresentAnimationController.swift */; };
-		4389BB961D73FB63000CD88C /* TransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4389BB911D73FB63000CD88C /* TransitionController.swift */; };
-		4389BBAF1D74311E000CD88C /* UIView+SnapshotImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4389BBAE1D74311E000CD88C /* UIView+SnapshotImage.swift */; };
 		43A6266A1D7E792E00E86FEC /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A626691D7E792E00E86FEC /* MenuViewController.swift */; };
+		CD05433C2175EFC70071333E /* View2ViewTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4389BB8D1D73FB63000CD88C /* View2ViewTransition.swift */; };
+		CD05433D2175EFC70071333E /* TransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4389BB911D73FB63000CD88C /* TransitionController.swift */; };
+		CD05433E2175EFC70071333E /* PresentAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4389BB901D73FB63000CD88C /* PresentAnimationController.swift */; };
+		CD05433F2175EFC70071333E /* DismissAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4389BB8E1D73FB63000CD88C /* DismissAnimationController.swift */; };
+		CD0543402175EFC70071333E /* DismissInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4389BB8F1D73FB63000CD88C /* DismissInteractiveTransition.swift */; };
+		CD0543412175EFC70071333E /* UIView+SnapshotImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4389BBAE1D74311E000CD88C /* UIView+SnapshotImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -126,7 +126,7 @@
 				TargetAttributes = {
 					4389BB721D73FA96000CD88C = {
 						CreatedOnToolsVersion = 7.3.1;
-						LastSwiftMigration = 0910;
+						LastSwiftMigration = "";
 					};
 				};
 			};
@@ -165,16 +165,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4389BB941D73FB63000CD88C /* DismissInteractiveTransition.swift in Sources */,
+				CD05433D2175EFC70071333E /* TransitionController.swift in Sources */,
+				CD05433E2175EFC70071333E /* PresentAnimationController.swift in Sources */,
+				CD0543412175EFC70071333E /* UIView+SnapshotImage.swift in Sources */,
 				43A6266A1D7E792E00E86FEC /* MenuViewController.swift in Sources */,
-				4389BB951D73FB63000CD88C /* PresentAnimationController.swift in Sources */,
-				4389BBAF1D74311E000CD88C /* UIView+SnapshotImage.swift in Sources */,
 				4389BB771D73FA96000CD88C /* AppDelegate.swift in Sources */,
+				CD05433C2175EFC70071333E /* View2ViewTransition.swift in Sources */,
 				4389BB8A1D73FB3F000CD88C /* PresentedViewController.swift in Sources */,
-				4389BB961D73FB63000CD88C /* TransitionController.swift in Sources */,
+				CD0543402175EFC70071333E /* DismissInteractiveTransition.swift in Sources */,
+				CD05433F2175EFC70071333E /* DismissAnimationController.swift in Sources */,
 				4389BB8B1D73FB3F000CD88C /* PresentingViewController.swift in Sources */,
-				4389BB921D73FB63000CD88C /* View2ViewTransition.swift in Sources */,
-				4389BB931D73FB63000CD88C /* DismissAnimationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,7 +304,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jpn.naru.View2ViewTransitionExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -318,7 +318,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jpn.naru.View2ViewTransitionExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

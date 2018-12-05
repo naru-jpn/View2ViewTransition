@@ -33,7 +33,7 @@ public final class PresentAnimationController: NSObject, UIViewControllerAnimate
     
     public var initialSpringVelocity: CGFloat = 0.0
     
-    public var animationOptions: UIViewAnimationOptions = [.curveEaseInOut, .allowUserInteraction]
+    public var animationOptions: UIView.AnimationOptions = [.curveEaseInOut, .allowUserInteraction]
     
     fileprivate(set) var initialTransitionView: UIImageView!
     

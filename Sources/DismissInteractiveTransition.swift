@@ -86,7 +86,7 @@ open class DismissInteractiveTransition: UIPercentDrivenInteractiveTransition {
                 cancel()
                 
                 let duration: Double = Double(self.duration)*Double(progress)
-                UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: UIViewAnimationOptions(), animations: {
+                UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: UIView.AnimationOptions(), animations: {
                     
                     self.animationController.destinationTransitionView.frame = self.animationController.destinationFrame
                     self.animationController.initialTransitionView.frame = self.animationController.destinationFrame
@@ -110,7 +110,7 @@ open class DismissInteractiveTransition: UIPercentDrivenInteractiveTransition {
                 self.transitionController.presentingViewController.view.isUserInteractionEnabled = false
                 
                 let duration: Double = animationController.transitionDuration
-                UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.0, options: UIViewAnimationOptions(), animations: {
+                UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.0, options: UIView.AnimationOptions(), animations: {
                     
                     self.animationController.destinationTransitionView.alpha = 0.0
                     self.animationController.initialTransitionView.alpha = 1.0
